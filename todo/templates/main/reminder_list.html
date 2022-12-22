@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Reminders</h2>
+{% for reminder in reminder_list %}
+    <div class="user">
+        <h4>Reminder: {{reminder.task}}</h4>
+        <ul>
+            <li>Date: {{reminder.reminder_time}}</li>
+            <li>Sound: {{reminder.reminder_sound}}</li>
+            <li>Vibrate: {{reminder.reminder_vibrate}}</li>
+        </ul>
+        </br>
+    </div>
+{% endfor %}
+{% endblock %}
