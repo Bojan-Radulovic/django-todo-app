@@ -1,0 +1,45 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h3>Enter task name:</h3>
+<form method="get" action="{% url 'search_tasks' %}">
+    <input type="text" name="q" placeholder="Search for a task">
+    <input type="submit" value="Search">
+</form>
+  
+  {% if results %}
+    <h2>Search results:</h2>
+    <ul>
+        {% for task in results %}
+        <div class="user">
+            <h4>{{task}}</h4>
+            <ul>
+                <li><a href="/task/edit/{{task.id}}">Edit task</a></li>
+                <li><a href="/task/delete/{{task.id}}">Delete task</a></li>
+                <li>To-do List: {{task.task_todo}}</li>
+                <li>Due: {{task.task_time}}</li>
+                <li>Completed: {{task.task_completed}}</li>
+            </ul>
+            {% if task.task_reminder %}
+                <p>
+                    Reminder:
+                    <ul>
+                        <li><a href="/reminder/edit/{{task.task_reminder.id}}">Edit reminder</a></li>
+                        <li><a href="/reminder/delete/{{task.task_reminder.id}}">Delete reminder</a></li>
+                        <li>Date: {{task.task_reminder.reminder_time}}</li>
+                        <li>Sound: {{task.task_reminder.reminder_sound}}</li>
+                        <li>Vibrate: {{task.task_reminder.reminder_vibrate}}</li>
+                    </ul>
+                </p>
+            {% else %}
+                <p>Reminder: <a href="/reminder/add/{{task.id}}">Add reminder</a></p></p>
+            {% endif %}
+            </br>
+        </div>
+        {% empty %}
+        <tr><td colspan="6">Nothing found</td></tr>
+        {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+{% endblock %}

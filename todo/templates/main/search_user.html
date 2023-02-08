@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h3>Enter user name:</h3>
+<form method="get" action="{% url 'search_users' %}">
+    <input type="text" name="q" placeholder="Search for a user">
+    <input type="submit" value="Search">
+</form>
+  
+  {% if results %}
+    <h2>Search results:</h2>
+    <ul>
+        {% for user in results %}
+        <div class="user">
+            <a href="/users/{{user.user_email}}"><h4>{{user}}</h4></a>
+            <a href="/user/edit/{{user.id}}"><p>Edit user</p></a>
+            <a href="/user/delete/{{user.id}}"><p>Delete user</p></a>
+            <p>Email: {{user.user_email}}</p>
+            <p>Joined: {{user.user_join_time}}</p>
+            <p><a href="/todos/{{user.user_email}}">{{user.user_name}}'s To-do Lists</a></p>
+            </br>
+        </div>
+        {% empty %}
+            <tr><td colspan="6">Nothing found</td></tr>
+        {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+{% endblock %}

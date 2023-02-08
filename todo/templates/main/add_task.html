@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    <button type="button" onclick="window.location.href='/todos'">Cancel</button>
+</form>
+{% else %}
+    <p>Please login to see this page.</p>
+{% endif %}
+{% endblock %}

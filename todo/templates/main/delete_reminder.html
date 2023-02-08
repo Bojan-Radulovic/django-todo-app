@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Are you sure you want to delete reminder at {{ reminder.reminder_time }}
+    <button type="submit">Delete</button>
+    <button type="button" onclick="window.location.href='/todos'">Cancel</button>
+</form>
+{% else %}
+    <p>Please login to see this page.</p>
+{% endif %}
+{% endblock %}

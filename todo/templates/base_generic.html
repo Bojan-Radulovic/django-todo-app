@@ -6,6 +6,13 @@
 
 <body>
     <h1>My To-do List App</h1>
+
+    {% if user.is_authenticated %}
+        <h3>Welcome, {{ user.username }}!</h3>
+    {% else %}
+        <h3>You aren't logged in :(</h3>
+    {% endif %}
+
     <div id="sidebar">
         {% block sidebar %}
         <ul>
@@ -14,6 +21,15 @@
             <li><a href="/todos">To-do Lists</a></li>
             <li><a href="/tasks">All Tasks and Reminders</a></li>
             <li><a href="/reminders">All Reminders</a></li>
+            <li><a href="/search/tasks">Search Tasks</a></li>
+            <li><a href="/search/todos">Search To-do Lists</a></li>
+            <li><a href="/search/users">Search Users</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/register">Register</a></li>
+            <li><a href="/accounts/login">Login</a></li>
+            {% endif %}
         </ul>
         {% endblock %}
     </div>

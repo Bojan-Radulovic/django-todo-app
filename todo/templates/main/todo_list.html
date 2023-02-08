@@ -1,8 +1,11 @@
 {% extends "base_generic.html" %}
 {% block content %}
 <h2>To-do Lists:</h2>
+<a href="/todo/add"><h3>Add new to-do list</h3></a>
 {% for todo in todo_list %}
     <h3>List: {{todo}}</h3>
+    <a href="/todo/edit/{{todo.id}}"><p>Edit to-do list</p></a>
+    <a href="/todo/delete/{{todo.id}}"><p>Delete to-do list</p></a>
     <h4>Created: {{todo.todo_created}}</h4>
     <h4>Users:</h4>
     <ul>
@@ -13,12 +16,15 @@
         {% endfor %}
     </ul>
     <h4>Tasks:</h4>
+    <a href="/task/add/{{todo.id}}"><p>Add new task</p></a>
     <ul>
         {% for task in todo.task_set.all %}
             <li>
                 <p>
                     {{task}}:
                     <ul>
+                        <li><a href="/task/edit/{{task.id}}">Edit task</a></li>
+                        <li><a href="/task/delete/{{task.id}}">Delete task</a></li>
                         <li>Due: {{task.task_time}}</li>
                         <li>Completed: {{task.task_completed}}</li>
                     </ul>
@@ -27,17 +33,21 @@
                     <p>
                         Reminder:
                         <ul>
+                            <li><a href="/reminder/edit/{{task.task_reminder.id}}">Edit reminder</a></li>
+                            <li><a href="/reminder/delete/{{task.task_reminder.id}}">Delete reminder</a></li>
                             <li>Date: {{task.task_reminder.reminder_time}}</li>
                             <li>Sound: {{task.task_reminder.reminder_sound}}</li>
                             <li>Vibrate: {{task.task_reminder.reminder_vibrate}}</li>
                         </ul>
                     </p>
                 {% else %}
-                    <p>Reminder: No reminder</p>
+                    <p>Reminder: <a href="/reminder/add/{{task.id}}">Add reminder</a></p>
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
 </br>
+{% empty %}
+    <tr><td colspan="6">Nothing found</td></tr>
 {% endfor %}
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Are you sure you want to delete user {{ user_object.user_name }} {{ user_object.user_surname }}
+    <button type="submit">Delete</button>
+    <button type="button" onclick="window.location.href='/users'">Cancel</button>
+</form>
+{% else %}
+    <p>Please login to see this page.</p>
+{% endif %}
+{% endblock %}
+  

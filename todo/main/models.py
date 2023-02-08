@@ -35,7 +35,7 @@ class Task(models.Model):
     task_completed = models.BooleanField(default=False)
     task_todo = models.ForeignKey(Todo, on_delete=models.CASCADE)
     task_time = models.DateTimeField(default=timezone.now)
-    task_reminder = models.OneToOneField(Reminder, on_delete=models.CASCADE, blank=True, null=True)
+    task_reminder = models.OneToOneField(Reminder, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.task_name

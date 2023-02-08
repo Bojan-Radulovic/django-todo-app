@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Are you sure you want to delete to-do list {{ todo.todo_name }}
+    <button type="submit">Delete</button>
+    <button type="button" onclick="window.location.href='/todos'">Cancel</button>
+</form>
+{% else %}
+    <p>Please login to see this page.</p>
+{% endif %}
+{% endblock %}
